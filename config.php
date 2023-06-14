@@ -2,11 +2,11 @@
 // Your MySQL database hostname.
 define('db_host','localhost');
 // Your MySQL database username.
-define('db_user','airforcerp_support');
+define('db_user','');
 // Your MySQL database password.
-define('db_pass','airforcerp_support');
+define('db_pass','');
 // Your MySQL database name.
-define('db_name','airforcerp_support');
+define('db_name','');
 // Your MySQL database charset.
 define('db_charset','utf8');
 /* Tickets */
@@ -29,31 +29,31 @@ define('max_title_length','200');
 // The maximum size of the message in characters.
 define('max_msg_length','10000');
 // The tickets directory URL (e.g. http://example.com/ticketsystem/).
-define('tickets_directory_url','https://support.airforcerp.com');
+define('tickets_directory_url','');
 /* Mail */
 // Send mail to the users, etc?
 define('mail_enabled',false);
 // This is the email address that will be used to send emails.
-define('mail_from','noreply@example.com');
+define('mail_from','');
 // The name of your business.
-define('mail_name','AirforceRP Support');
+define('mail_name','');
 // If enabled, the mail will be sent using SMTP.
 define('SMTP',true);
 // Your SMTP hostname.
-define('smtp_host','mail.gmail.com');
+define('smtp_host','');
 // Your SMTP port number.
-define('smtp_port','587');
+define('smtp_port','');
 // Your SMTP username.
-define('smtp_user','support@airforcerp.com');
+define('smtp_user','');
 // Your SMTP Password.
-define('smtp_pass','Y7b2&2&BPQ%K8rB*');
+define('smtp_pass','');
 /* Google OAuth */
 // The OAuth client ID associated with your API console account.
-define('google_oauth_client_id','45045492577-dt8n06tfgvt53faq5u2emj7kn6puqn50.apps.googleusercontent.com');
+define('google_oauth_client_id','');
 // The OAuth client secret associated with your API console account.
-define('google_oauth_client_secret','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');
+define('google_oauth_client_secret','');
 // The URL to the Google OAuth file.
-define('google_oauth_redirect_uri','https://support.airforcerp.com/google-oauth.php');
+define('google_oauth_redirect_uri','');
 // The Livechat Script ON or OFF TRUE = ONLINE FALSE = OFFLINE
 define('livechat_ONLINE',true);
 // Max number of messages
