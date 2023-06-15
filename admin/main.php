@@ -108,7 +108,6 @@ echo <<<EOT
             <h1>Admin</h1>
             $admin_links
             <div class="footer">
-                <a href="https://codeshack.io/package/php/advanced-live-support-chat-system/" target="_blank">Advanced Live Support Chat System</a>
                 Version 1.0.0
             </div>
         </aside>
