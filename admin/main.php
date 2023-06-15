@@ -4,7 +4,7 @@ include_once '../config.php';
 include_once '../main.php';
 // Check if admin is logged in
 if (!isset($_SESSION['account_loggedin'])) {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 // If the user is not admin redirect them back to the login page
