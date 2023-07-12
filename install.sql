@@ -82,8 +82,6 @@ CREATE TABLE `conversations` (
 --
 
 INSERT INTO `conversations` (`id`, `account_sender_id`, `account_receiver_id`, `submit_date`, `status`) VALUES
-(1, 4, 3, '2023-06-12 18:24:49', 'Open'),
-(2, 4, 5, '2023-06-12 18:26:05', 'Open');
 
 -- --------------------------------------------------------
 
