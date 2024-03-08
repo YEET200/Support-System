@@ -68,6 +68,10 @@ function send_ticket_email($email, $id, $title, $msg, $priority, $category, $pri
         exit('Error: Message could not be sent. Mailer Error: ' . $mail->ErrorInfo);
     }
 }
+
+function send_ticket_sms($number,$id, $title, $msg, $priority, $category, $private, $status, $type = 'create', $name = '', $user_email = '', $user_phone = '',) {
+    // Working on ClickSend's API
+}
 // Template header, feel free to customize this
 function template_header($title) {
 $login_link = isset($_SESSION['account_loggedin']) ? '<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>' : '<a href="login.php"><i class="fas fa-lock"></i>Login</a>';
