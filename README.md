@@ -12,7 +12,7 @@ Key Features:
 
 6. Analytics and Reporting: The system offers robust analytics and reporting capabilities, providing valuable insights into support team performance and customer satisfaction. Managers can track key metrics such as response times, ticket resolution rates, customer feedback, and overall workload distribution. These insights help identify areas for improvement and optimize support processes.
 
-7. Multichannel Integration: The system can integrate with various communication channels, including email, social media, and live chat platforms. This ensures a unified support experience across different channels, allowing customers to choose their preferred mode of communication while maintaining a centralized ticketing system for agents.
+7. Multichannel Integration: The system can integrate with various communication channels, including email and live chat platforms. This ensures a unified support experience across different channels, allowing customers to choose their preferred mode of communication while maintaining a centralized ticketing system for agents.
 
 Benefits:
 
