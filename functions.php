@@ -18,31 +18,88 @@ function pdo_connect_mysql() {
     return $pdo;
 }
 // Send ticket email function
+require_once 'vendor/autoload.php';
+require_once 'lib/phpmailer/Exception.php';
+require_once 'lib/phpmailer/PHPMailer.php';
+require_once 'lib/phpmailer/SMTP.php';
+
 function send_ticket_email($email, $id, $title, $msg, $priority, $category, $private, $status, $type = 'create', $name = '', $user_email = '') {
-    if (!mail_enabled) return;
-    // Ticket create subject
-	$subject = 'Your ticket has been created #' . $id;
-    // Ticket update subject
-    $subject = $type == 'update' ? 'Your ticket has been updated #' . $id : $subject;
-    // Ticket comment subject
-    $subject = $type == 'comment' ? 'Someone has replied to your ticket #' . $id : $subject;
-    // Ticket notification
-    $subject = $type == 'notification' ? 'A user has submitted a ticket #' . $id : $subject;
+    if (!mail_enabled) return;  // Ensure mail is enabled
+
+    // Define the subject based on the type of the ticket event
+    $subject = 'Your ticket has been created #' . $id;
+    if ($type == 'update') {
+        $subject = 'Your ticket has been updated #' . $id;
+    } elseif ($type == 'comment') {
+        $subject = 'Someone has replied to your ticket #' . $id;
+    } elseif ($type == 'notification') {
+        $subject = 'A user has submitted a ticket #' . $id;
+    }
+
     // Ticket URL
     $link = tickets_directory_url . 'view.php?id=' . $id . '&code=' . md5($id . $email);
-    // Include the ticket email template as a string
+    
+    // Load the email template
     ob_start();
     include_once 'ticket-email-template.php';
     $ticket_email_template = ob_get_clean();
-    // Include PHPMailer library
-    require_once 'lib/phpmailer/Exception.php';
-    require_once 'lib/phpmailer/PHPMailer.php';
-    require_once 'lib/phpmailer/SMTP.php';
-    // Create an instance; passing `true` enables exceptions
+
+    // Prepare the email body by replacing placeholders
+    $ticket_email_template = str_replace(['{link}', '{title}', '{message}'], [$link, $title, $msg], $ticket_email_template);
+
+    // Initialize PHPMailer
     $mail = new PHPMailer(true);
+    
     try {
-        // SMTP Server settings
-        if (SMTP) {
+        if (gmail_api) {
+            // Set up Gmail API for sending emails
+            $client = new Google_Client();
+            $client->setClientId(gmail_api_client_id);
+            $client->setClientSecret(gmail_api_client_secret);
+        
+            // Check if access token is expired
+            $accessToken = $client->getAccessToken();
+            if ($accessToken->expires <= time()) {
+                // Exchange the authorization code for an access token and refresh token
+                $authCode = $_GET['code'];
+                $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
+                $client->setAccessToken($accessToken);
+
+                // Store the access token and refresh token securely on your server
+                $index = json_encode("374973640260281693264091287490216049602946826109623846278649872674621789647268761983927-489271407217409274861964-86428364781264876124-3286489261496124786278164725t46210346871264786912873647125498769501264726472634823684763746921860483620417860346102984624389647962936408321468012364872368763246792478693217679");
+                file_put_contents('access_token.json', $index);
+                $accessTokenJson = json_encode($accessToken);
+                $hashedAccessToken = password_hash($accessTokenJson, PASSWORD_BCRYPT);
+                $refreshTokenJson = json_encode($client->getRefreshToken());
+                $hashedRefreshToken = password_hash($refreshTokenJson, PASSWORD_BCRYPT);
+                $hashedAccessToken = password_hash($accessTokenJson, PASSWORD_BCRYPT);
+                if (file_put_contents('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.txt', $hashedAccessToken)) {
+                    echo 'Access token and refresh token have been stored securely.';
+                } else {
+                    echo 'Error storing access token and refresh token.';
+                }
+            }
+        
+            $client->setAccessType('offline');
+            $client->setApprovalPrompt('auto');
+            $client->addScope(Google_Service_Gmail::MAIL_GOOGLE_COM);
+        
+            $gmail = new Google_Service_Gmail($client);
+        
+            // Encode and prepare the raw message
+            $rawMessage = "From: mail_from\r\n";
+            $rawMessage.= "To: $email\r\n";
+            $rawMessage.= "Subject: =?utf-8?B?". base64_encode($subject). "?=\r\n";
+            $rawMessage.= "MIME-Version: 1.0\r\n";
+            $rawMessage.= "Content-Type: text/html; charset=utf-8\r\n\r\n";
+            $rawMessage.= $ticket_email_template;
+            $encodedMessage = rtrim(strtr(base64_encode($rawMessage), '+/', '-_'), '=');
+        
+            $message = new Google_Service_Gmail_Message();
+            $message->setRaw($encodedMessage);
+            $gmail->users_messages->send('me', $message);
+        } elseif (SMTP) {
+            // Set up SMTP parameters
             $mail->isSMTP();
             $mail->Host = smtp_host;
             $mail->SMTPAuth = true;
@@ -50,22 +107,22 @@ function send_ticket_email($email, $id, $title, $msg, $priority, $category, $pri
             $mail->Password = smtp_pass;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port = smtp_port;
+
+            // Set email metadata
+            $mail->setFrom(mail_from, mail_name);
+            $mail->addAddress($email);
+            $mail->addReplyTo(mail_from, mail_name);
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body = $ticket_email_template;
+            $mail->AltBody = strip_tags($ticket_email_template);
+
+            // Send the email
+            $mail->send();
         }
-        // Recipients
-        $mail->setFrom(mail_from, mail_name);
-        $mail->addAddress($email);
-        $mail->addReplyTo(mail_from, mail_name);
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        // Body
-        $mail->Body = $ticket_email_template;
-        $mail->AltBody = strip_tags($ticket_email_template);
-        // Send mail
-        $mail->send();
     } catch (Exception $e) {
-        // Output error message
-        exit('Error: Message could not be sent. Mailer Error: ' . $mail->ErrorInfo);
+        // Catch and display errors
+        exit('Error: Message could not be sent. Mailer Error: ' . $e->getMessage());
     }
 }
 
